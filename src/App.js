@@ -7,7 +7,7 @@ const UserInfoWithLoader = withUser(UserInfo, '234');
 
 function App() {
 	return (
-		<UserInfoWithLoader />
+		<UserInfoForm />
 	);
 }
 
