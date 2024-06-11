@@ -1,12 +1,19 @@
 import axios from "axios";
-import { useDatasource } from "./useDatasource";
+import { useDataSource } from "./useDataSource";
+
+const serverResource = resourceUrl => async () => {
+	const response = await axios.get(resourceUrl)
+	return response.data;
+}
+
+const localStorageResouce = key => () => {
+	return localStorage.getItem(key);
+}
+
 
 export const UserInfo = ({ userId }) => {
-	const user = useDatasource(async () => {
-
-		const response = await axios.get(`/users/${userId}`)
-		return response.data;
-	});
+	const user = useDataSource(serverResource(`/users/${userId}`));
+	const message = useDataSource(localStorageResouce('message'))
 
 	const { name, age, hairColor, hobbies } = user || {};
 
